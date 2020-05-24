@@ -1,8 +1,3 @@
-# Git Config File
-# osx: 10.11.4
-# date: 12-27-2015
-# user: brian
-
 [user]
 	name = Brian Vess
 	email = brian.vess@gmail.com
