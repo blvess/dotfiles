@@ -1,0 +1,18 @@
+# Git Config File
+# osx: 10.11.4
+# date: 12-27-2015
+# user: brian
+
+[user]
+	name = Brian Vess
+	email = brian.vess@gmail.com
+[color]
+	ui = true
+[push]
+	default = simple
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+[core]
+	excludesfile = ~/.gitignore
+    bare = true
+	pager = less -F -X

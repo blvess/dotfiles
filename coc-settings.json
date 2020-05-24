@@ -1,0 +1,85 @@
+{
+  "suggest.noselect": false,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": "",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "typescript.tsx",
+    "javascript.jsx",
+    "graphql",
+    "json",
+    "rust",
+    "python"
+  ],
+  "coc.source.omni.enable": true,
+  "coc.source.omni.filetypes": ["cmake"],
+  "html.filetypes": ["html", "handlebars", "htmldjango", "javascript"],
+  "json.format.enable": true,
+  "snippets.extends": {
+    "cpp": ["c"],
+    "typescript": ["javascript"],
+    "javascriptreact": ["javascript"],
+    "typescriptreact": ["javascript"],
+    "javascript.jsx": ["javascript"],
+    "typescript.tsx": ["javascript"]
+  },
+  "python.formatting.provider": "black",
+  "prettier.trailingComma": "es5",
+  "prettier.singleQuote": true,
+  "prettier.arrowParens": "avoid",
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        },
+        "clang": {
+          "resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0",
+          "extraArgs": [
+            "-std=c++17",
+            "-stdlib=libc++",
+            "-isystem",
+            "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
+            "-I",
+            "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/",
+            "-isystem",
+            "/usr/local/include",
+            "-isystem",
+            "/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1",
+            "-isystem",
+            "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0/include",
+            "-isystem",
+            "/Library/Developer/CommandLineTools/usr/include",
+            "-isystem",
+            "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include",
+            "-isystem",
+            "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks",
+            "-I",
+            "/usr/local/Cellar/boost/1.72.0/include",
+            "-I",
+            "/usr/local/Cellar/sdl2/2.0.10/include"
+          ]
+        }
+      }
+    }
+  }
+}
