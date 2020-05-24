@@ -29,6 +29,7 @@ alias vim=nvim
 alias vi=nvim
 alias gcc=gcc-9
 alias g++=g++-9
+alias :qa='tmux kill-session'
 
 # Clear for tmux and terminal
 c() {
