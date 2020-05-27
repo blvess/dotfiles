@@ -54,6 +54,7 @@ export LDFLAGS="-L/usr/local/opt/sqlite/lib"
 export CPPFLAGS="-I/usr/local/opt/sqlite/include"
 
 # Go
+export GOROOT=/usr/local/go
 export GOPATH=$HOME/Workspace/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
