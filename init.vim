@@ -9,6 +9,7 @@
 "██████████████████████████████████████████████████████████████████████████████████████
 
 call plug#begin()
+set runtimepath+=$GOROOT/misc/vim
 
 ""Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -96,6 +97,9 @@ set splitright
 nmap <leader>l :set list!<CR>
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
+" Toggle spell check
+nmap <leader>sc :set spell!<CR>
+
 
 " Filetype indent and format settings
 " ================================================================================================
@@ -121,17 +125,18 @@ autocmd FileType cmake setlocal omnifunc=syntaxcomplete#Complete
 nnoremap <Leader>n :NERDTreeToggle<Enter>
 nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 augroup NERD
-    au!
-    "No Signcolumn on nerdtree
+    autocmd!
+    " Open nerdtree and switch cursor to main window
+    " autocmd VimEnter * NERDTree | wincmd p
+    " No Signcolumn on nerdtree
     autocmd FileType tagbar,nerdtree setlocal signcolumn=no
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-    autocmd VimEnter * wincmd p
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
-let g:NERDTreeChDirMode = 2
+" let g:NERDTreeChDirMode = 2
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$', '^__pycache__$', '^\.git$']
 " let g:NERDTreeQuitOnOpen = 1
@@ -151,19 +156,15 @@ endif
 
 syntax enable
 syntax on
+set background=dark
 
 " Solarized Theme
-" let g:airline_solarized_bg='dark'
-" let g:solarized_visibility='high'
-" let g:solarized_diffmode='high'
-" let g:solarized_termtrans=1
-" let g:solarized_extra_hi_groups=1
-let g:airline_theme = "palenight"
-let g:palenight_terminal_italics=1
-" colorscheme solarized8_flat
-" colorscheme dracula
-set background=dark
-colorscheme palenight
+let g:airline_solarized_bg='dark'
+let g:solarized_visibility='high'
+let g:solarized_diffmode='high'
+let g:solarized_termtrans=1
+let g:solarized_extra_hi_groups=1
+colorscheme solarized8_high
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#coc#enabled = 1
@@ -318,6 +319,7 @@ let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
+let g:polyglot_disabled = ['go']
 
 nmap <silent> <Esc><Esc> :cclose<CR>
 nmap <silent> <Esc><Esc> :lclose<CR>
