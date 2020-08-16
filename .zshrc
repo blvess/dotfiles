@@ -11,7 +11,7 @@ POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=true
 
-plugins=(git z fzf npm node osx pyenv yarn solarized-man zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(docker git z fzf npm node osx pyenv yarn solarized-man zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -19,6 +19,7 @@ source $ZSH/oh-my-zsh.sh
 export TERM="xterm-256color"
 autoload -U compinit && compinit
 LSCOLORS=exfxfeaeBxxehehbadacea
+export EDITOR="nvim"
 
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
@@ -30,6 +31,10 @@ alias vi=nvim
 alias gcc=gcc-9
 alias g++=g++-9
 alias :qa='tmux kill-session'
+
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 # Clear for tmux and terminal
 c() {

@@ -194,6 +194,7 @@ let g:coc_global_extensions = [
             \ 'coc-python',
             \ 'coc-omni',
             \ 'coc-go',
+            \ 'coc-docker',
             \ ]
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -297,11 +298,14 @@ tnoremap <silent> <leader><space> <C-\><C-n>:Ttoggle<cr>
 " Wrap
 :set showbreak=…
 command! -nargs=* Wrap set wrap! linebreak nolist
-nnoremap <leader>w :Wrap<cr>
+nnoremap <leader>wr :Wrap<cr>
 noremap <silent> k gk
 noremap <silent> j gj
 noremap <silent> 0 g0
 noremap <silent> $ g$
+
+" Windows
+nnoremap <leader>ww <C-w>=
 
 " Go
 " ================================================================================================
