@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export TERM="xterm-256color"
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit -i
 LSCOLORS=exfxfeaeBxxehehbadacea
 export EDITOR="nvim"
 

@@ -67,6 +67,7 @@ Plug 'dense-analysis/ale'
 Plug 'itspriddle/vim-marked'
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+Plug 'vimwiki/vimwiki', { 'branch': 'dev'}
 
 " Snippets
 Plug 'mlaursen/vim-react-snippets'
@@ -77,6 +78,7 @@ syntax on
 set clipboard+=unnamed
 set clipboard+=unnamedplus
 let mapleader=","
+set modeline
 set number
 set relativenumber
 set backspace=2
@@ -92,6 +94,8 @@ set nowrap
 set updatetime=300
 set splitbelow
 set splitright
+set wildmenu
+set wildmode:longest:full,full
 
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
@@ -138,7 +142,7 @@ augroup END
 
 " let g:NERDTreeChDirMode = 2
 let g:NERDTreeShowHidden=1
-let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$', '^__pycache__$', '^\.git$']
+let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$', '^__pycache__$', '^\.git$', '\.parcel-cache$']
 " let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeMinimalUI = 1
@@ -305,7 +309,7 @@ noremap <silent> 0 g0
 noremap <silent> $ g$
 
 " Windows
-nnoremap <leader>ww <C-w>=
+nnoremap <leader>= <C-w>=
 
 " Go
 " ================================================================================================
@@ -332,7 +336,7 @@ let g:ale_linters = {
     \}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
+let g:ale_open_list = 0
 
 " Help Tags Generate
 " ================================================================================================
@@ -344,3 +348,27 @@ packloadall
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
+
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal_code_blocks = 0
+nmap <leader>whh <Plug>VimwikiALL2HTML
+let g:vimwiki_list = [{
+	\ 'path': '~/cloud/Wiki',
+	\ 'template_path': '~/cloud/Wiki/templates',
+	\ 'template_default': 'default',
+	\ 'syntax': 'markdown',
+	\ 'ext': '.md',
+	\ 'path_html': '~/cloud/Wiki/html',
+	\ 'custom_wiki2html': 'vimwiki_markdown',
+	\ 'template_ext': '.tpl'}]
+
+" let g:vimwiki_list = [{
+" 	\ 'path': '~/cloud/Wiki',
+" 	\ 'template_path': '~/cloud/Wiki/templates',
+" 	\ 'template_default': 'default',
+" 	\ 'syntax': 'markdown',
+" 	\ 'ext': '.md',
+" 	\ 'path_html': '~/cloud/Wiki/html',
+" 	\ 'custom_wiki2html': 'vimwiki_markdown',
+" 	\ 'template_ext': '.tpl'}]
+
