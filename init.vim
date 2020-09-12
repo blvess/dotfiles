@@ -117,7 +117,7 @@ augroup INDENT
     autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType go setlocal noexpandtab
-    autocmd BufRead,BufNewFile *.md setlocal spell
+    autocmd FileType vimwiki set syntax=markdown
 augroup END
 
 " Omnifunc for certain filetypes
@@ -361,14 +361,3 @@ let g:vimwiki_list = [{
 	\ 'path_html': '~/cloud/Wiki/html',
 	\ 'custom_wiki2html': 'vimwiki_markdown',
 	\ 'template_ext': '.tpl'}]
-
-" let g:vimwiki_list = [{
-" 	\ 'path': '~/cloud/Wiki',
-" 	\ 'template_path': '~/cloud/Wiki/templates',
-" 	\ 'template_default': 'default',
-" 	\ 'syntax': 'markdown',
-" 	\ 'ext': '.md',
-" 	\ 'path_html': '~/cloud/Wiki/html',
-" 	\ 'custom_wiki2html': 'vimwiki_markdown',
-" 	\ 'template_ext': '.tpl'}]
-
