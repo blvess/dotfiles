@@ -126,25 +126,25 @@ autocmd FileType cmake setlocal omnifunc=syntaxcomplete#Complete
 
 " NERDTree
 " ================================================================================================
-nnoremap <Leader>n :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>n :NERDTreeToggle<Enter>
 nnoremap <silent> <Leader>v :NERDTreeFind<CR>
-augroup NERD
-    autocmd!
-    " Open nerdtree and switch cursor to main window
-    " autocmd VimEnter * NERDTree | wincmd p
-    " No Signcolumn on nerdtree
-    autocmd FileType tagbar,nerdtree setlocal signcolumn=no
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-augroup END
+" augroup NERD
+"     autocmd!
+"     " Open nerdtree and switch cursor to main window
+"     " autocmd VimEnter * NERDTree | wincmd p
+"     " No Signcolumn on nerdtree
+"     autocmd FileType tagbar,nerdtree setlocal signcolumn=no
+"     autocmd StdinReadPre * let s:std_in=1
+"     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+"     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" augroup END
 
-" let g:NERDTreeChDirMode = 2
+" " let g:NERDTreeChDirMode = 2
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIgnore = ['^node_modules$', '\.pyc$', '^__pycache__$', '^\.git$', '\.parcel-cache$']
-" let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeAutoDeleteBuffer = 1
+let g:NERDTreeQuitOnOpen = 1
+" let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeMinimalUI = 1
 
 " Theme
