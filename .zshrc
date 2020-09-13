@@ -1,45 +1,33 @@
-export TERM="xterm-256color"
-export ZSH="/Users/brian/.oh-my-zsh"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+echo "\n"
+neofetch
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status anaconda node_version)
-
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_DELIMITER=""
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=true
-
-plugins=(docker git z fzf npm node osx pyenv yarn solarized-man zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # User configuration
-export TERM="xterm-256color"
 autoload -Uz compinit && compinit -i
-LSCOLORS=exfxfeaeBxxehehbadacea
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+export TERM="xterm-256color"
 export EDITOR="nvim"
 
-# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_BASE="$HOME/.fzf"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 alias vim=nvim
 alias vi=nvim
-alias gcc=gcc-9
-alias g++=g++-9
+alias ls='ls --color=auto'
 alias :qa='tmux kill-session'
 
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
 
 # Clear for tmux and terminal
 c() {
-   clear-history
-   clear
+    clear-history
+    clear
 }
 alias cc='c'
 
@@ -55,13 +43,6 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 export CGO_ENABLED=1
 
-# Auto additions
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -76,4 +57,18 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source <(antibody init)
+antibody bundle romkatv/powerlevel10k
+antibody bundle zdharma/fast-syntax-highlighting
+antibody bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-completions
+antibody bundle zlsun/solarized-man
+antibody bundle joel-porquet/zsh-dircolors-solarized
+antibody bundle robbyrussell/oh-my-zsh path:plugins/nvm
+antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
+
 
