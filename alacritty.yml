@@ -9,7 +9,7 @@ font:
   normal:
     family: FiraCode Nerd Font
   italic:
-    family: Operator Mono SSm
+    family: Operator Mono SSm Lig
     style: Medium Italic
   size: 15.0
   offset:

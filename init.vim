@@ -38,6 +38,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'vifm/vifm.vim'
 
 " Terminal
 Plug 'kassio/neoterm'
@@ -58,9 +59,10 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 " Syntax
 Plug 'rhysd/vim-clang-format'
-Plug 'leafgarland/typescript-vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Must set before loading the plugin
+let g:polyglot_disabled = ['go']
 Plug 'sheerun/vim-polyglot'
 Plug 'alvan/vim-closetag'
 Plug 'dense-analysis/ale'
@@ -68,6 +70,7 @@ Plug 'itspriddle/vim-marked'
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'vimwiki/vimwiki', { 'branch': 'dev'}
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Snippets
 Plug 'mlaursen/vim-react-snippets'
@@ -327,7 +330,6 @@ let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
-let g:polyglot_disabled = ['go']
 
 nmap <silent> <Esc><Esc> :cclose<CR>
 nmap <silent> <Esc><Esc> :lclose<CR>

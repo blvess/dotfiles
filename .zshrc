@@ -7,12 +7,18 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # User configuration
-autoload -Uz compinit && compinit -i
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
 export TERM="xterm-256color"
 export EDITOR="nvim"
+# reset terminal to emacs mode
+bindkey -e
+autoload -Uz compinit && compinit -i
+
+# Enable Ctrl-x Ctrl-e to edit command line
+autoload -U edit-command-line
+# Emacs style
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
 
 export FZF_BASE="$HOME/.fzf"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}"'
@@ -58,6 +64,9 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -70,5 +79,3 @@ antibody bundle zlsun/solarized-man
 antibody bundle joel-porquet/zsh-dircolors-solarized
 antibody bundle robbyrussell/oh-my-zsh path:plugins/nvm
 antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
-
-

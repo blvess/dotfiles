@@ -12,6 +12,7 @@
     "javascript.jsx",
     "graphql",
     "json",
+    "html",
     "rust",
     "python"
   ],
