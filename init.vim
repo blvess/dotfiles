@@ -40,6 +40,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vifm/vifm.vim'
 
+Plug 'drmingdrmer/vim-toggle-quickfix'
+
 " Terminal
 Plug 'kassio/neoterm'
 
@@ -56,6 +58,7 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'kaicataldo/material.vim'
 Plug 'rakr/vim-one'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'arcticicestudio/nord-vim'
 
 " Syntax
 Plug 'rhysd/vim-clang-format'
@@ -64,13 +67,13 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Must set before loading the plugin
 let g:polyglot_disabled = ['go']
 Plug 'sheerun/vim-polyglot'
+Plug 'styled-components/vim-styled-components', { 'branch': 'develop' }
 Plug 'alvan/vim-closetag'
 Plug 'dense-analysis/ale'
 Plug 'itspriddle/vim-marked'
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'vimwiki/vimwiki', { 'branch': 'dev'}
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Snippets
 Plug 'mlaursen/vim-react-snippets'
@@ -94,6 +97,7 @@ set ignorecase
 set showmatch
 set hidden
 set nowrap
+set cmdheight=2
 set updatetime=300
 set splitbelow
 set splitright
@@ -119,6 +123,7 @@ augroup INDENT
     autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType svelte setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType go setlocal noexpandtab
     autocmd FileType vimwiki set syntax=markdown
 augroup END
@@ -153,12 +158,12 @@ let g:NERDTreeMinimalUI = 1
 " Theme
 " ================================================================================================:
 if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
 
 syntax enable
@@ -172,6 +177,12 @@ let g:solarized_diffmode='high'
 let g:solarized_termtrans=1
 let g:solarized_extra_hi_groups=1
 colorscheme solarized8_high
+
+" Material Theme
+" let g:material_theme_style = 'palenight'
+" let g:material_terminal_italics = 1
+" let g:airline_theme = 'material'
+" colorscheme material
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#coc#enabled = 1
@@ -202,9 +213,14 @@ let g:coc_global_extensions = [
             \ 'coc-omni',
             \ 'coc-go',
             \ 'coc-docker',
+            \ 'coc-styled-components',
+            \ 'coc-svelte',
             \ ]
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Show signcolumn for all files
 autocmd BufRead,BufNewFile * setlocal signcolumn=yes
@@ -289,8 +305,8 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.js'
 autocmd FileType c ClangFormatAutoEnable
 autocmd FileType c,cc,cpp,objc,h,hh,hpp  ClangFormatAutoEnable
 let g:clang_format#style_options = {
-    \ "BasedOnStyle": "Google",
-    \ "AllowShortFunctionsOnASingleLine": "Inline" }
+            \ "BasedOnStyle": "Google",
+            \ "AllowShortFunctionsOnASingleLine": "Inline" }
 
 " Terminal Mode
 " ================================================================================================
@@ -321,24 +337,48 @@ nnoremap <leader>= <C-w>=
 let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
 let g:go_auto_type_info = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_extra_types = 1
+
+" Go syntax highlighting
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_types = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_variable_declarations = 1
 let g:go_fmt_command = "goimports"
 
-nmap <silent> <Esc><Esc> :cclose<CR>
-nmap <silent> <Esc><Esc> :lclose<CR>
+" Toggle Quickfix
+nmap <leader>q <Plug>window:quickfix:loop
+
+let g:ale_linter_aliases = {'svelte': ['css', 'javascript']}
 let g:ale_linters = {
-    \   'go': ['gopls','golint','govet','errcheck']
-    \}
+            \   'go': ['gopls','golint','govet','errcheck'],
+            \   'svelte': ['stylelint', 'eslint'],
+            \}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 0
+let g:ale_javascript_eslint_suppress_missing_config=1
+let g:ale_disable_lsp = 1
+let g:ale_sign_error = ' ✘'
+let g:ale_sign_warning = ' '
+
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal_code_blocks = 0
+
+nmap <leader>whh <Plug>VimwikiALL2HTML
+let g:vimwiki_list = [{
+            \ 'path': '~/cloud/Wiki',
+            \ 'template_path': '~/cloud/Wiki/templates',
+            \ 'template_default': 'default',
+            \ 'syntax': 'markdown',
+            \ 'ext': '.md',
+            \ 'path_html': '~/cloud/Wiki/html',
+            \ 'custom_wiki2html': 'vimwiki_markdown',
+            \ 'template_ext': '.tpl'}]
 
 " Help Tags Generate
 " ================================================================================================
@@ -351,15 +391,17 @@ packloadall
 " All messages and errors will be ignored.
 silent! helptags ALL
 
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_conceal_code_blocks = 0
-nmap <leader>whh <Plug>VimwikiALL2HTML
-let g:vimwiki_list = [{
-	\ 'path': '~/cloud/Wiki',
-	\ 'template_path': '~/cloud/Wiki/templates',
-	\ 'template_default': 'default',
-	\ 'syntax': 'markdown',
-	\ 'ext': '.md',
-	\ 'path_html': '~/cloud/Wiki/html',
-	\ 'custom_wiki2html': 'vimwiki_markdown',
-	\ 'template_ext': '.tpl'}]
+
+" Close floating window
+inoremap <C-c> <Esc><Esc>
+
+" Scroll in floating window
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+" let g:python3_host_prog="/opt/anaconda3/bin/python3"

@@ -3,6 +3,7 @@
   "diagnostic.errorSign": "✘",
   "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
+  "diagnostic.displayByAle": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "typescript",
@@ -13,11 +14,15 @@
     "graphql",
     "json",
     "html",
+    "css",
     "rust",
-    "python"
+    "python",
+    "svelte",
+    "go"
   ],
   "coc.source.omni.enable": true,
   "coc.source.omni.filetypes": ["cmake"],
+  "eslint.quiet": true,
   "html.filetypes": ["html", "handlebars", "htmldjango", "javascript"],
   "json.format.enable": true,
   "snippets.extends": {
@@ -29,6 +34,7 @@
     "typescript.tsx": ["javascript"]
   },
   "python.formatting.provider": "black",
+  "python.jediEnabled": false,
   "prettier.trailingComma": "es5",
   "prettier.singleQuote": true,
   "prettier.arrowParens": "avoid",

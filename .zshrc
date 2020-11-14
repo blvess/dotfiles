@@ -7,7 +7,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # User configuration
-export TERM="xterm-256color"
+export TERM="tmux-256color-italic"
+[ -z "$TMUX" ] && export TERM="xterm-256color"
 export EDITOR="nvim"
 # reset terminal to emacs mode
 bindkey -e
@@ -76,6 +77,9 @@ antibody bundle zdharma/fast-syntax-highlighting
 antibody bundle zsh-users/zsh-autosuggestions
 antibody bundle zsh-users/zsh-completions
 antibody bundle zlsun/solarized-man
+antibody bundle agkozak/zsh-z
 antibody bundle joel-porquet/zsh-dircolors-solarized
 antibody bundle robbyrussell/oh-my-zsh path:plugins/nvm
 antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
