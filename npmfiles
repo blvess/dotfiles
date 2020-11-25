@@ -1,8 +1,8 @@
-/Users/brian/.nvm/versions/node/v15.1.0/lib
+/Users/brian/.nvm/versions/node/v15.3.0/lib
 ├── bash-language-server@1.17.0
-├── eslint@7.13.0
+├── eslint@7.14.0
 ├── neovim@4.9.0
 ├── npm-check@5.9.2
-├── npm@7.0.8
+├── npm@7.0.14
 └── yarn@1.22.10
 
