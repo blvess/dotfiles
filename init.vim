@@ -103,6 +103,7 @@ set splitbelow
 set splitright
 set wildmenu
 set wildmode:longest:full,full
+set mouse=a
 
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
@@ -130,6 +131,9 @@ augroup END
 
 " Omnifunc for certain filetypes
 autocmd FileType cmake setlocal omnifunc=syntaxcomplete#Complete
+
+
+let g:python3_host_prog = '/usr/local/anaconda3/bin/python'
 
 
 " NERDTree
@@ -403,5 +407,3 @@ inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(
 
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-
-" let g:python3_host_prog="/opt/anaconda3/bin/python3"
