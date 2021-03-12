@@ -6,6 +6,8 @@ rsync -avh ~/.tmux.conf .
 rsync -avh ~/.config/nvim/init.vim .
 rsync -avh ~/.config/nvim/coc-settings.json .
 rsync -avh ~/.config/alacritty/alacritty.yml .
+rsync -avh ~/.config/kitty/kitty.conf .
+rsync -avh ~/.config/kitty/'Solarized Dark - Patched.conf' .
 rsync -avh ~/.p10k.zsh .
 
 # Save homebrew files
