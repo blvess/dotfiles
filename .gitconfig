@@ -11,3 +11,5 @@
 	excludesfile = ~/.gitignore
     bare = true
 	pager = less -F -X
+[init]
+	defaultBranch = master

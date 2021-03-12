@@ -5,13 +5,21 @@ window:
   decorations: full
 
 # Font configuration
+#
 font:
   normal:
-    family: FiraCode Nerd Font
+    family: Operator Mono SSm Lig
+    style: Book
+  bold:
+    family: Operator Mono SSm Lig
+    style: Medium
   italic:
-    family: Operator Mono Lig
+    family: Operator Mono SSm Lig
+    style: Book Italic
+  bold_italic:
+    family: Operator Mono SSm Lig
     style: Medium Italic
-  size: 15.0
+  size: 17.0
   offset:
     x: 0
     y: -1

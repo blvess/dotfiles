@@ -11,13 +11,6 @@
 call plug#begin()
 set runtimepath+=$GOROOT/misc/vim
 
-""Fuzzy find
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" Trailing whitespace highlighting & automatic fixing
-Plug 'ntpeters/vim-better-whitespace'
-
 " Intellisense Engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -31,6 +24,10 @@ Plug 'tpope/vim-repeat'
 
 " UI enhancements
 Plug 'yggdroot/indentline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
+Plug 'lifepillar/vim-solarized8'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -39,26 +36,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vifm/vifm.vim'
-
-Plug 'drmingdrmer/vim-toggle-quickfix'
-
-" Terminal
-Plug 'kassio/neoterm'
-
-" Customized vim and tmux status line
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/tmuxline.vim'
-
-" Theme
-Plug 'lifepillar/vim-solarized8'
-Plug 'rakr/vim-one'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'ayu-theme/ayu-vim'
-Plug 'kaicataldo/material.vim'
-Plug 'rakr/vim-one'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'arcticicestudio/nord-vim'
 
 " Syntax
 Plug 'rhysd/vim-clang-format'
@@ -77,6 +54,14 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev'}
 
 " Snippets
 Plug 'mlaursen/vim-react-snippets'
+
+" Utilities
+Plug 'kassio/neoterm'
+Plug 'vim-test/vim-test'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'drmingdrmer/vim-toggle-quickfix'
 
 call plug#end()
 
@@ -122,6 +107,7 @@ augroup INDENT
     autocmd FileType typescriptreact setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType javascriptreact setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType json setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType svelte setlocal tabstop=2 softtabstop=2 shiftwidth=2
@@ -139,7 +125,6 @@ let g:python3_host_prog = '/usr/local/anaconda3/bin/python'
 " NERDTree
 " ================================================================================================
 nnoremap <silent> <Leader>n :NERDTreeToggle<Enter>
-nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 " augroup NERD
 "     autocmd!
 "     " Open nerdtree and switch cursor to main window
@@ -182,16 +167,11 @@ let g:solarized_termtrans=1
 let g:solarized_extra_hi_groups=1
 colorscheme solarized8_high
 
-" Material Theme
-" let g:material_theme_style = 'palenight'
-" let g:material_terminal_italics = 1
-" let g:airline_theme = 'material'
-" colorscheme material
-
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled = 1
+
 " Do not reset the tmuxline theme
 "  Run :Tmuxline airline_visual full to set the theme
 "  Run :TmuxlineSnapshot ~/.tmux.theme to create a theme file for .tmux.conf
@@ -375,25 +355,16 @@ let g:vim_markdown_conceal_code_blocks = 0
 
 nmap <leader>whh <Plug>VimwikiALL2HTML
 let g:vimwiki_list = [{
-            \ 'path': '~/cloud/Wiki',
-            \ 'template_path': '~/cloud/Wiki/templates',
-            \ 'template_default': 'default',
+            \ 'path': '~/.dotfiles/wiki',
             \ 'syntax': 'markdown',
-            \ 'ext': '.md',
-            \ 'path_html': '~/cloud/Wiki/html',
-            \ 'custom_wiki2html': 'vimwiki_markdown',
-            \ 'template_ext': '.tpl'}]
+            \ 'ext': '.md'}]
 
-" Help Tags Generate
-" ================================================================================================
-" Put these lines at the very end of your vimrc file.
-
-" Load all plugins now.
-" Plugins need to be added to runtimepath before helptags can be generated.
-packloadall
-" Load all of the helptags now, after plugins have been loaded.
-" All messages and errors will be ignored.
-silent! helptags ALL
+" Set filetype of md to markdown
+let g:vimwiki_global_ext = 0
+" Append wiki file extension to links in Markdown
+let g:vimwiki_markdown_link_ext = 1
+" toggle conceallevel
+nnoremap <Leader>c :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>
 
 
 " Close floating window
@@ -407,3 +378,23 @@ inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(
 
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+" VimTest
+" these 'Ctrl mappings' work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+" Help Tags Generate
+" ================================================================================================
+" Put these lines at the very end of your vimrc file.
+
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
+
