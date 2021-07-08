@@ -22,9 +22,15 @@
 * Show Documentation
     - K {in normal mode}
 
+* Trigger Completion
+    - Ctrl-space
+
 * Folding
     - Close => zc
     - Open => zo
     - Toggle => za
     - Open All => [zR](zR)
     - Close All => zM
+
+* Conceal Toggle
+    - <leader>c
